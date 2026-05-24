@@ -10,7 +10,7 @@
   <img src="https://img.shields.io/badge/Laravel-v12.0-FF2D20?style=for-the-badge&logo=laravel&logoColor=white" alt="Laravel Version">
   <img src="https://img.shields.io/badge/PHP-%5E8.2-777BB4?style=for-the-badge&logo=php&logoColor=white" alt="PHP Version">
   <img src="https://img.shields.io/badge/Bootstrap-v5.3-7952B3?style=for-the-badge&logo=bootstrap&logoColor=white" alt="Bootstrap Version">
-  <img src="https://img.shields.io/badge/SQLite-Database-003B57?style=for-the-badge&logo=sqlite&logoColor=white" alt="SQLite">
+  <img src="https://img.shields.io/badge/MySQL-Database-4479A1?style=for-the-badge&logo=mysql&logoColor=white" alt="MySQL">
   <img src="https://img.shields.io/badge/license-MIT-green?style=for-the-badge" alt="License">
 </p>
 
@@ -29,7 +29,7 @@ This is a complete, lightweight, and modern **Student Management CRUD System** b
 - 📄 **Robust Pagination**: Integrated native Eloquent pagination (5 items per page) with query string preservation when changing pages.
 - 🛡️ **Server-Side Validation**: Secure form submission with validation (e.g. required fields, email formatting, and unique database checks).
 - 🎨 **Premium Modern UI**: Styled with modern CSS and Bootstrap 5 featuring card shadows, clean tables, rounded elements, interactive states, and beautiful status alerts.
-- 🗄️ **Zero-Configuration SQLite DB**: Uses local SQLite for instant setup and portability out of the box.
+- 🗄️ **MySQL Database Integration**: Powered by MySQL for managing persistent, reliable, and relational student records.
 
 ---
 
@@ -38,7 +38,7 @@ This is a complete, lightweight, and modern **Student Management CRUD System** b
 ### Backend & Core
 - **Framework:** Laravel 12.x
 - **Language:** PHP 8.2+
-- **Database:** SQLite (Default for lightweight and swift operations)
+- **Database:** MySQL
 
 ### Frontend & Styling
 - **CSS Framework:** Bootstrap v5.3 (Loaded via high-availability CDN)
@@ -62,7 +62,7 @@ Make sure you have the following installed on your machine:
 
 #### 1. Navigate to your Project Directory
 ```bash
-cd my-example-app
+cd laravel-student-record
 ```
 
 #### 2. Install PHP Dependencies
@@ -84,21 +84,22 @@ Generate the unique secure application key:
 php artisan key:generate
 ```
 
-#### 5. Database Configuration
-By default, the project uses **SQLite**. Create an empty database file in the database directory:
-```bash
-# Windows PowerShell
-New-Item -Path "database\database.sqlite" -ItemType File -Force
+#### 5. Database Configuration & Setup
 
-# Linux/macOS / Windows Git Bash
-touch database/database.sqlite
-```
+1. Create a MySQL database (for example, named `laravel`):
+   ```sql
+   CREATE DATABASE laravel;
+   ```
 
-Ensure your `.env` database connection looks like this:
-```env
-DB_CONNECTION=sqlite
-# Make sure to comment out or remove DB_HOST, DB_PORT, DB_DATABASE, DB_USERNAME, DB_PASSWORD to default to database.sqlite
-```
+2. Configure your MySQL credentials and database details in the `.env` file:
+   ```env
+   DB_CONNECTION=mysql
+   DB_HOST=127.0.0.1
+   DB_PORT=3306
+   DB_DATABASE=laravel
+   DB_USERNAME=root
+   DB_PASSWORD=your_secure_password
+   ```
 
 #### 6. Run Database Migrations
 Create the tables in your database:
@@ -128,17 +129,17 @@ The application will be accessible at: **[http://127.0.0.1:8000](http://127.0.0.
 Here is a map of the important codebase files related to this CRUD feature:
 
 * **Routes:**
-  * [`routes/web.php`](file:///c:/Workspace/Laravel/my-example-app/routes/web.php) — Contains the student resource route mapping and homepage redirects.
+  * [`routes/web.php`](file:///c:/Workspace/Laravel/laravel-student-record/routes/web.php) — Contains the student resource route mapping and homepage redirects.
 * **Controllers:**
-  * [`app/Http/Controllers/StudentController.php`](file:///c:/Workspace/Laravel/my-example-app/app/Http/Controllers/StudentController.php) — Processes search queries, stores, updates, and deletes students.
+  * [`app/Http/Controllers/StudentController.php`](file:///c:/Workspace/Laravel/laravel-student-record/app/Http/Controllers/StudentController.php) — Processes search queries, stores, updates, and deletes students.
 * **Models & Migrations:**
-  * [`app/Models/Student.php`](file:///c:/Workspace/Laravel/my-example-app/app/Models/Student.php) — Student model with mass-assignment (`$fillable`) guards.
-  * [`database/migrations/2026_05_24_081609_create_students_table.php`](file:///c:/Workspace/Laravel/my-example-app/database/migrations/2026_05_24_081609_create_students_table.php) — Core database schema definitions for the `students` table.
+  * [`app/Models/Student.php`](file:///c:/Workspace/Laravel/laravel-student-record/app/Models/Student.php) — Student model with mass-assignment (`$fillable`) guards.
+  * [`database/migrations/2026_05_24_081609_create_students_table.php`](file:///c:/Workspace/Laravel/laravel-student-record/database/migrations/2026_05_24_081609_create_students_table.php) — Core database schema definitions for the `students` table.
 * **Views (Blade Templates):**
-  * [`resources/views/layouts/app.blade.php`](file:///c:/Workspace/Laravel/my-example-app/resources/views/layouts/app.blade.php) — Main app wrapper, CDN includes, and session alerts.
-  * [`resources/views/students/index.blade.php`](file:///c:/Workspace/Laravel/my-example-app/resources/views/students/index.blade.php) — Interactive data table, search input, and paginator.
-  * [`resources/views/students/create.blade.php`](file:///c:/Workspace/Laravel/my-example-app/resources/views/students/create.blade.php) — Creation form with validated inputs.
-  * [`resources/views/students/edit.blade.php`](file:///c:/Workspace/Laravel/my-example-app/resources/views/students/edit.blade.php) — Edit form populated with existing student records.
+  * [`resources/views/layouts/app.blade.php`](file:///c:/Workspace/Laravel/laravel-student-record/resources/views/layouts/app.blade.php) — Main app wrapper, CDN includes, and session alerts.
+  * [`resources/views/students/index.blade.php`](file:///c:/Workspace/Laravel/laravel-student-record/resources/views/students/index.blade.php) — Interactive data table, search input, and paginator.
+  * [`resources/views/students/create.blade.php`](file:///c:/Workspace/Laravel/laravel-student-record/resources/views/students/create.blade.php) — Creation form with validated inputs.
+  * [`resources/views/students/edit.blade.php`](file:///c:/Workspace/Laravel/laravel-student-record/resources/views/students/edit.blade.php) — Edit form populated with existing student records.
 
 ---
 
